@@ -5,8 +5,11 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard - <a href="">Create new contact</a></div>
+                    <div class="panel-heading">Dashboard - <a href="{{ route('contact.add') }}">Create new contact</a></div>
                 </div>
+                
+                <br/>
+
             @if(count($contacts))
 
                 <div class="panel panel-default">
