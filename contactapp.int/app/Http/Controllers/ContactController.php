@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Models\Contact;
 
@@ -25,5 +26,16 @@ class ContactController extends Controller
         $contact->save();
 
         return redirect ('/')->with('error', 'Contact was created!');
+    }
+
+    public function edit(int $id){
+        try{
+            $contact = Contact::findOrFail($id);
+        }
+        catch(ModelNotFoundException $e){
+            return redirect('/')->with('error', 'Contact not found!');
+        }
+
+        return view ('contact.edit', ['contact' => $contact]);
     }
 }
