@@ -23,7 +23,7 @@
                             <tr>
                                 <td>{{ $contact->name}}</td>
                                 <td>{{ $contact->email}}</td>
-                                <td>&nbsp;</td>
+                                <td><a href="{{ route('contact.edit', ['id' => $contact->id]) }}">edit</a> / <a href="{{ route('contact.delete', ['id' => $contact->id]) }}"></a>delete</a></td>
                             </tr>
                         @endforeach
                     </table>
