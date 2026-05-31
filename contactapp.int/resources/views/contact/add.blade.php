@@ -12,7 +12,8 @@
 
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form method="POST">
+                        <form method="POST" action="{{ route('contact.add.store') }}">
+                            @csrf
                             <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="text" name="name" class="form-control" />
