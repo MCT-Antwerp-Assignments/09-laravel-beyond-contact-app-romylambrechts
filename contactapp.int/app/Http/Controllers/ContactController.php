@@ -58,4 +58,16 @@ class ContactController extends Controller
 
         return redirect()->route('contact.edit', ['id' => $id])->with('msg', 'Contact was updated!');
     }
+
+    public function delete(Request $request, int $id)
+    {
+        try {
+            $contact = Contact::findOrFail($id);
+            $contact->delete();
+        } catch (ModelNotFoundException $e) {
+            return redirect('/')->with('error', 'Contact not found!');
+        }
+
+        return redirect()->route('home')->with('error', 'Contact was deleted!');
+    }
 }
