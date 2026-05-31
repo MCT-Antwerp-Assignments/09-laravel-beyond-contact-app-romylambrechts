@@ -17,7 +17,7 @@ class ContactController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|uniquex:contacts',
         ]);
 
         $contact = new Contact;
