@@ -10,14 +10,14 @@ class ContactController extends Controller
 {
     public function add(Request $request)
     {
-        return view ('contact.add');
+        return view('contact.add');
     }
 
-    function store (Request $request)
+    function store(Request $request)
     {
         $this->validate($request, [
-            'name'=>'required',
-            'email'=>'required',
+            'name' => 'required',
+            'email' => 'required',
         ]);
 
         $contact = new Contact;
@@ -25,17 +25,37 @@ class ContactController extends Controller
         $contact->email = $request->input('email');
         $contact->save();
 
-        return redirect ('/')->with('error', 'Contact was created!');
+        return redirect('/')->with('error', 'Contact was created!');
     }
 
-    public function edit(int $id){
-        try{
+    public function edit(int $id)
+    {
+        try {
             $contact = Contact::findOrFail($id);
-        }
-        catch(ModelNotFoundException $e){
+        } catch (ModelNotFoundException $e) {
             return redirect('/')->with('error', 'Contact not found!');
         }
 
-        return view ('contact.edit', ['contact' => $contact]);
+        return view('contact.edit', ['contact' => $contact]);
+    }
+
+    public function update(Request $request, int $id)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+        ]);
+
+        try {
+            $contact = Contact::findOrFail($id);
+            $contact->name = $request->input('name');
+            $contact->email = $request->input('email');
+            $contact->save();
+        } catch (ModelNotFoundException $e) {
+            return redirect('/')->with('error', 'Contact not found!');
+        }
+
+
+        return redirect()->route('contact.edit', ['id' => $id])->with('msg', 'Contact was updated!');
     }
 }
